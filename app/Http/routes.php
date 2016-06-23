@@ -21,3 +21,5 @@ Route::resource('clubs', 'ClubsController');
 
 Route::resource('categories', 'CategoriesController');
 
+Route::get('contest', 'HomeController@index');
+
