@@ -9,7 +9,7 @@ use App\Category;
 class Competitor extends Model
 {
     protected $fillable = [
-        'category_id', 'club_id', 'serial', 'full_name', 'time'
+        'category_id', 'club_id', 'serial', 'full_name', 'time_sec'
     ];
 
     public function club()

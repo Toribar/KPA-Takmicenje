@@ -19,7 +19,7 @@ class CompetitorsController extends Controller
      */
     public function index()
     {
-        $competitors = Competitor::orderBy('full_name')->paginate();
+        $competitors = Competitor::orderBy('serial')->paginate();
 
         return view('competitors.index', compact('competitors'));
     }
@@ -89,7 +89,11 @@ class CompetitorsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $competitor = Competitor::findOrFail($id);
+
+        $competitor->update($request->all());
+
+        return redirect()->route('competitors.show', $competitor->id);
     }
 
     /**

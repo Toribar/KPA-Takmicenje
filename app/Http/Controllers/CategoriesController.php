@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Category;
+use App\Competitor;
 use App\Http\Requests\CreateCategoryRequest;
 
 class CategoriesController extends Controller
@@ -55,7 +56,19 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::findOrFail($id);
+
+        $competitors = $category->competitors()
+            ->orderBy('time_sec')
+            ->get();
+        // dd($competitors->count());
+
+        $rang = 1;
+        foreach ($competitors as $competitor) {
+            $competitor->rang = $rang++;
+        }
+
+        return view('categories.show', compact('category', 'competitors'));
     }
 
     /**

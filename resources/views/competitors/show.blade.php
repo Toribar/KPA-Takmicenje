@@ -23,4 +23,24 @@
             </div>
         </div>
     </div>
+
+    <div class="header">
+        <h3>Vreme</h3>
+        <small class="help-block">Upisi vreme u sekundama</small>
+    </div>
+
+    {{ Form::open(['url' => route('competitors.update', $competitor->id), 'method' => 'patch', 'class' => 'form-horizontal']) }}
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-3">
+                {{ Form::number('time_sec', null, ['class' => 'form-control']) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-3">
+                <button class="btn btn-info btn-sm btn-block" type="submit">Potvrdi vreme</button>
+            </div>
+        </div>
+
+
+    {{ Form::close() }}
 @stop
