@@ -17,9 +17,15 @@ class CompetitorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $competitors = Competitor::orderBy('serial')->paginate();
+        $query = Competitor::orderBy('serial');
+
+        if ($request->search) {
+            $query->where('serial', 'like', "%{$request->search}%");
+        }
+
+        $competitors = $query->paginate();
 
         return view('competitors.index', compact('competitors'));
     }
@@ -77,7 +83,13 @@ class CompetitorsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $competitor = Competitor::findOrFail($id);
+
+        $clubs = Club::orderBy('name')->lists('name', 'id');
+
+        $categories = Category::orderBy('name')->lists('name', 'id');
+
+        return view('competitors.edit', compact('competitor', 'clubs', 'categories'));
     }
 
     /**

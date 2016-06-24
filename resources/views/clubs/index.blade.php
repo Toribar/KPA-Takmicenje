@@ -16,7 +16,7 @@
 @section('content')
 
 @foreach ($clubs as $club)
-    <a href="#" class="panel panel-default">
+    <a href="{{ route('clubs.show', $club->id) }}" class="panel panel-default">
         <div class="panel-body">
              <small class="text-muted pull-right">{{ $club->getAssociation() }}</small>
             <div class="panel-body-item-header text-center">

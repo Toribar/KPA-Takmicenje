@@ -11,7 +11,12 @@
 @stop
 
 @section('content')
+<ul class="nav nav-tabs">
+    <li class="{{ $association == 'sopas' ? 'active' : null }}"><a href="?association=sopas">SOPAS</a></li>
+    <li class="{{ $association == 'spav' ? 'active' : null }}"><a href="?association=spav">SPAV</a></li>
+</ul>
 
+<br />
 @foreach ($competitors as $competitor)
     <a href="{{ route('competitors.show', $competitor->id) }}" class="panel panel-default">
         <div class="panel-body">

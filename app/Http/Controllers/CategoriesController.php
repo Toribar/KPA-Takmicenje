@@ -54,21 +54,26 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        $association = $request->get('association', 'sopas');
+
         $category = Category::findOrFail($id);
 
         $competitors = $category->competitors()
             ->orderBy('time_sec')
+            ->whereHas('club', function($query) use($association) {
+                $query->where('association', $association)
+                ->orWhere('association', 'both');
+                })
             ->get();
-        // dd($competitors->count());
 
         $rang = 1;
         foreach ($competitors as $competitor) {
             $competitor->rang = $rang++;
         }
 
-        return view('categories.show', compact('category', 'competitors'));
+        return view('categories.show', compact('category', 'competitors', 'association'));
     }
 
     /**

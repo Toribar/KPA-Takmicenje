@@ -20,7 +20,7 @@ class ClubsController extends Controller
     {
         $clubs = Club::orderBy('name')->paginate();
 
-        return view('clubs.index', compact('clubs' ));
+        return view('clubs.index', compact('clubs'));
     }
 
     /**
@@ -56,7 +56,9 @@ class ClubsController extends Controller
      */
     public function show($id)
     {
-        //
+        $club = Club::findOrFail($id);
+
+        return view('clubs.show', compact('club'));
     }
 
     /**
@@ -67,7 +69,9 @@ class ClubsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $club = Club::findOrFail($id);
+
+        return view('clubs.edit', compact('club'));
     }
 
     /**
@@ -79,7 +83,11 @@ class ClubsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $club = Club::findOrFail($id);
+
+        $club->update($request->all());
+
+        return redirect()->route('clubs.show', $club->id);
     }
 
     /**

@@ -10,6 +10,16 @@
     </a>
 </div>
 
+<form>
+    <div class="form-group">
+        <div class="col-sm-2 col-sm-offset-4" style="padding-bottom: 20px">
+            <input type="search" name="search" placeholder="Redni broj..." class="form-control col-sm-3" autocomplete="off">
+        </div>
+        <button class="btn col-sm-2" type="submit">Traži</button>
+    </div>
+</form>
+
+
 @stop
 
 @section('content')
@@ -27,6 +37,9 @@
                     <h4 class="media-heading text-primary">{{ $competitor->full_name }}</h4>
                     <div class="text-muted">
                         {{ $competitor->club->name }}
+                    </div>
+                    <div style="color: #37474F;">
+                        {{ $competitor->category->name }}
                     </div>
                 </div>
             </div>

@@ -21,26 +21,41 @@
                 <div class="col-md-3 panel-body-item-header">Klub</div>
                 <div class="col-md-9">{{ $competitor->club->name }}</div>
             </div>
+
+            <div class="row panel-body-item" style="padding-bottom: 20px">
+                <div class="col-md-3 panel-body-item-header">Redni broj</div>
+                <div class="col-md-9">{{ $competitor->serial }}</div>
+            </div>
+
+            @if ($competitor->time_sec)
+                <div class="row panel-body-item" style="padding-bottom: 20px">
+                    <div class="col-md-3 panel-body-item-header">Vreme</div>
+                    <div class="col-md-9">{{ gmdate("H:i:s", $competitor->time_sec) }}</div>
+                </div>
+            @endif
+
         </div>
     </div>
 
-    <div class="header">
-        <h3>Vreme</h3>
-        <small class="help-block">Upisi vreme u sekundama</small>
-    </div>
-
-    {{ Form::open(['url' => route('competitors.update', $competitor->id), 'method' => 'patch', 'class' => 'form-horizontal']) }}
-        <div class="form-group">
-            <div class="col-md-6 col-md-offset-3">
-                {{ Form::number('time_sec', null, ['class' => 'form-control']) }}
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-6 col-md-offset-3">
-                <button class="btn btn-info btn-sm btn-block" type="submit">Potvrdi vreme</button>
-            </div>
+    @if (!$competitor->time_sec)
+        <div class="header">
+            <h3>Vreme</h3>
+            <small class="help-block">Upisi vreme u sekundama</small>
         </div>
 
+        {{ Form::open(['url' => route('competitors.update', $competitor->id), 'method' => 'patch', 'class' => 'form-horizontal']) }}
+            <div class="form-group">
+                <div class="col-md-6 col-md-offset-3">
+                    {{ Form::number('time_sec', null, ['class' => 'form-control']) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6 col-md-offset-3">
+                    <button class="btn btn-info btn-sm btn-block" type="submit">Potvrdi vreme</button>
+                </div>
+            </div>
 
-    {{ Form::close() }}
+
+        {{ Form::close() }}
+    @endif
 @stop
